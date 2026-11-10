@@ -21,7 +21,14 @@
                         </div>
                         <div class="mb-4">
                             <label for="author_id" class="block text-sm font-medium text-gray-700">Author</label>
-                            <input type="text" name="author_id" id="author_id" value="{{ $book->author_id }}" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            <select name="author_id" id="author_id" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                <option value="">Select an Author</option>
+                                @foreach ($authors as $author)
+                                    <option value="{{ $author->id }}" {{ $book->author_id == $author->id ? 'selected' : '' }}>
+                                        {{ $author->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="mb-4">
                             <label for="publication_year" class="block text-sm font-medium text-gray-700">Publication Year</label>

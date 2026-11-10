@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Author;
 use Illuminate\Http\Request;
 
 
@@ -11,8 +12,9 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::orderBy('title', 'asc')->paginate(2);
+        $authors = Author::orderBy('name', 'asc')->get();
 
-        return view('books.index', compact('books'));
+        return view('books.index', compact('books', 'authors'));
     }
 
     public function show($bookId)
@@ -23,7 +25,8 @@ class BookController extends Controller
 
     public function create()
     {
-        return view('books.create');
+        $authors = Author::orderBy('name', 'asc')->get();
+        return view('books.create', compact('authors'));
     }
 
     public function store(Request $request)
@@ -43,7 +46,8 @@ class BookController extends Controller
     public function edit($bookId)
     {
         $book = Book::findOrFail($bookId);
-        return view('books.edit', compact('book'));
+        $authors = Author::orderBy('name', 'asc')->get();
+        return view('books.edit', compact('book', 'authors'));
     }
 
     public function update(Request $request, $bookId)
